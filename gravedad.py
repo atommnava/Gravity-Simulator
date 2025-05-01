@@ -11,13 +11,15 @@ CENTER = WIDTH // 2, HEIGHT // 2
 centerX = WIDTH // 2
 centerY = HEIGHT // 2
 
-G = 0.2
-M = 10e7
+# Agujero negro Campos
+G = 1.2
+M = 1e9
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
-r0 = 10
+# Agujero negro
+r0 = 25
 
 pygame.init()
 
@@ -28,8 +30,8 @@ class Particle:
         self.mass = 2
         self.x = x
         self.y = y
-        self.momentum_x = 500
-        self.momentum_y = 500
+        self.momentum_x = 0
+        self.momentum_y = 0
         self.dt = 0.001
 
     def move(self, x_y_central_mass):
@@ -44,7 +46,10 @@ class Particle:
         self.momentum_y += force_y * self.dt
         self.x += self.momentum_x / self.mass * self.dt
         self.y += self.momentum_y / self.mass * self.dt
+
         return [self.x, self.y]
+
+
 
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -91,7 +96,7 @@ def generator():
 # Flor
 def generator():
     petals = 6
-    for i in range(1000):
+    for i in range(2):
         angle = random.uniform(0, 2 * math.pi)
         radius = 150 + 50 * math.sin(petals * angle)
         x = centerX + radius * cos(angle)
@@ -99,8 +104,21 @@ def generator():
         p = Particle(x, y)
         particles.append(p)
 
+def generator_black_hole():
+    for _ in range(25000):
+        angle = random.uniform(0, 2 * math.pi)
+        radius = random.uniform(100, 250)
+        x = centerX + radius * cos(angle)
+        y = centerY + radius * sin(angle)
+        p = Particle(x, y)
+        # velocidad orbital pero incompleta (colapso eventual)
+        speed = sqrt(G * M / radius) * 0.6  # 60% de la velocidad de escape
+        p.momentum_x = -speed * sin(angle)
+        p.momentum_y = speed * cos(angle)
+        particles.append(p)
 
-generator()
+
+generator_black_hole()
 
 
 def draw():
@@ -110,6 +128,8 @@ def draw():
 
 running = True
 while running:
+    pygame.draw.circle(screen, WHITE, CENTER, r0 + 2)  # borde blanco
+    pygame.draw.circle(screen, BLACK, CENTER, r0)      # agujero negro central
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -118,7 +138,7 @@ while running:
     screen.fill(BLACK)
 
     # Gravity point
-    # central_mass = pygame.draw.circle(screen, WHITE, CENTER, r0)
+    central_mass = pygame.draw.circle(screen, BLACK, CENTER, r0)
 
     draw()
 

@@ -5,14 +5,14 @@ from random import randrange
 
 import pygame
 
-WIDTH = 1400
-HEIGHT = 800
-CENTER = WIDTH // 2, HEIGHT // 2
-centerX = WIDTH // 2
-centerY = HEIGHT // 2
+ANCHO = 1400
+ALTURA = 800
+CENTRO = ANCHO // 2, ALTURA // 2
+centroX = ANCHO // 2
+centroY = ALTURA // 2
 
 # Agujero negro Campos
-G = 1.2
+G = 0.8
 M = 1e9
 
 BLACK = (0, 0, 0)
@@ -24,7 +24,7 @@ r0 = 25
 pygame.init()
 
 
-class Particle:
+class Particula:
     def __init__(self, x, y):
         self.g = G
         self.mass = 2
@@ -52,9 +52,9 @@ class Particle:
 
 
 
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((ANCHO, ALTURA))
 
-particles = []
+particulas = []
 
 r = 200
 
@@ -65,8 +65,8 @@ def generator():
     for i in range(1000):
         x = randrange(-500, 1000)
         y = 100
-        p = Particle(x, y)
-        particles.append(p)
+        p = Particula(x, y)
+        particulas.append(p)
 """
 
 # Circulo
@@ -77,10 +77,10 @@ def generator():
          hyp = sqrt(random.uniform(0, 1)) * r
          adj = cos(ang) * hyp
          opp = sin(ang) * hyp
-         x = centerX + adj
-         y = centerY + opp
-         p = Particle(x, y)
-         particles.append(p)
+         x = centroX + adj
+         y = centroY + opp
+         p = Particula(x, y)
+         particulas.append(p)
 """
 
 # Cuadrado
@@ -89,47 +89,47 @@ def generator():
      for i in range(500):
          x = randrange(0, 500)
          y = randrange(0, 500)
-         p = Particle(x, y)
-         particles.append(p)
+         p = Particula(x, y)
+         particulas.append(p)
 """
 
 # Flor
 def generator():
     petals = 6
     for i in range(2):
-        angle = random.uniform(0, 2 * math.pi)
-        radius = 150 + 50 * math.sin(petals * angle)
-        x = centerX + radius * cos(angle)
-        y = centerY + radius * sin(angle)
-        p = Particle(x, y)
-        particles.append(p)
+        angulo = random.uniform(0, 2 * math.pi)
+        radio = 150 + 50 * math.sin(petals * angulo)
+        x = centroX + radio * cos(angulo)
+        y = centroY + radio * sin(angulo)
+        p = Particula(x, y)
+        particulas.append(p)
 
-def generator_black_hole():
+def agujero_negro_generador():
     for _ in range(25000):
-        angle = random.uniform(0, 2 * math.pi)
-        radius = random.uniform(100, 250)
-        x = centerX + radius * cos(angle)
-        y = centerY + radius * sin(angle)
-        p = Particle(x, y)
+        angulo = random.uniform(0, 2 * math.pi)
+        radio = random.uniform(100, 250)
+        x = centroX + radio * cos(angulo)
+        y = centroY + radio * sin(angulo)
+        p = Particula(x, y)
         # velocidad orbital pero incompleta (colapso eventual)
-        speed = sqrt(G * M / radius) * 0.6  # 60% de la velocidad de escape
-        p.momentum_x = -speed * sin(angle)
-        p.momentum_y = speed * cos(angle)
-        particles.append(p)
+        speed = sqrt(G * M / radio) * 0.6  # 60% de la velocidad de escape
+        p.momentum_x = -speed * sin(angulo)
+        p.momentum_y = speed * cos(angulo)
+        particulas.append(p)
 
 
-generator_black_hole()
+agujero_negro_generador()
 
 
 def draw():
-    for i in range(len(particles)):
-        pygame.draw.circle(screen, WHITE, (particles[i].move(CENTER)), 1)
+    for i in range(len(particulas)):
+        pygame.draw.circle(screen, WHITE, (particulas[i].move(CENTRO)), 1)
 
 
 running = True
 while running:
-    pygame.draw.circle(screen, WHITE, CENTER, r0 + 2)  # borde blanco
-    pygame.draw.circle(screen, BLACK, CENTER, r0)      # agujero negro central
+    pygame.draw.circle(screen, WHITE, CENTRO, r0 + 2)  # borde blanco
+    pygame.draw.circle(screen, BLACK, CENTRO, r0)      # agujero negro central
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -138,7 +138,7 @@ while running:
     screen.fill(BLACK)
 
     # Gravity point
-    central_mass = pygame.draw.circle(screen, BLACK, CENTER, r0)
+    central_mass = pygame.draw.circle(screen, BLACK, CENTRO, r0)
 
     draw()
 

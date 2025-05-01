@@ -54,35 +54,50 @@ particles = []
 r = 200
 
 
-# Line
+# Linea
+""""
 def generator():
     for i in range(1000):
         x = randrange(-500, 1000)
         y = 100
         p = Particle(x, y)
         particles.append(p)
+"""
 
+# Circulo
+"""
+def generator():
+     for i in range(1000):
+         ang = random.uniform(0, 1) * 2 * math.pi
+         hyp = sqrt(random.uniform(0, 1)) * r
+         adj = cos(ang) * hyp
+         opp = sin(ang) * hyp
+         x = centerX + adj
+         y = centerY + opp
+         p = Particle(x, y)
+         particles.append(p)
+"""
 
-# Circle
-# def generator():
-#     for i in range(1000):
-#         ang = random.uniform(0, 1) * 2 * math.pi
-#         hyp = sqrt(random.uniform(0, 1)) * r
-#         adj = cos(ang) * hyp
-#         opp = sin(ang) * hyp
-#         x = centerX + adj
-#         y = centerY + opp
-#         p = Particle(x, y)
-#         particles.append(p)
+# Cuadrado
+"""
+def generator():
+     for i in range(500):
+         x = randrange(0, 500)
+         y = randrange(0, 500)
+         p = Particle(x, y)
+         particles.append(p)
+"""
 
-
-# Square
-# def generator():
-#     for i in range(500):
-#         x = randrange(0, 500)
-#         y = randrange(0, 500)
-#         p = Particle(x, y)
-#         particles.append(p)
+# Flor
+def generator():
+    petals = 6
+    for i in range(1000):
+        angle = random.uniform(0, 2 * math.pi)
+        radius = 150 + 50 * math.sin(petals * angle)
+        x = centerX + radius * cos(angle)
+        y = centerY + radius * sin(angle)
+        p = Particle(x, y)
+        particles.append(p)
 
 
 generator()

@@ -88,10 +88,10 @@ r = 200
 
 
 # Linea
-""""
+"""
 def generator():
     for i in range(1000):
-        x = randrange(-500, 1000)
+        x = random.randrange(-500, 1000)
         y = 100
         p = Particula(x, y)
         particulas.append(p)

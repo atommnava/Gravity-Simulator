@@ -2,6 +2,7 @@ import math
 import random
 from math import cos, sin, sqrt
 from random import randrange
+import colorsys
 
 import pygame
 
@@ -55,7 +56,7 @@ class Particula:
         self.y = y
         self.momentum_x = 0
         self.momentum_y = 0
-        self.dt = 0.001
+        self.dt = 0.001  # Paso de tiempo pequeño para mayor precisión
 
     def move(self, x_y_central_mass):
         x2 = x_y_central_mass[0]
@@ -65,11 +66,12 @@ class Particula:
         force = (self.g * self.mass * M) / hyp
         force_x = force * math.cos(theta)
         force_y = force * math.sin(theta)
+
+        # Método de Euler para actualización de velocidad y posición
         self.momentum_x += force_x * self.dt
         self.momentum_y += force_y * self.dt
         self.x += self.momentum_x / self.mass * self.dt
         self.y += self.momentum_y / self.mass * self.dt
-
         return [self.x, self.y]
 
 

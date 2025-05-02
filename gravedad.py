@@ -5,8 +5,8 @@ from random import randrange
 
 import pygame
 
-ANCHO = 1400
-ALTURA = 800
+ANCHO = 1450
+ALTURA = 900
 CENTRO = ANCHO // 2, ALTURA // 2
 centroX = ANCHO // 2
 centroY = ALTURA // 2
@@ -16,7 +16,7 @@ G = 0.5
 M = 1e9
 
 BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
+WHITE = (255, 60, 0)
 
 # Agujero negro
 r0 = 25

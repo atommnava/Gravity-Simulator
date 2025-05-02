@@ -1,17 +1,22 @@
+# Bibliotecas
 import math
 import random
 from math import cos, sin, sqrt
-from random import randrange
-import colorsys
-
 import pygame
 
+# VARIABLES GLOBALES
 ANCHO = 1400
 ALTURA = 800
 CENTRO = ANCHO // 2, ALTURA // 2
 centroX = ANCHO // 2
 centroY = ALTURA // 2
 
+"""
+@brief Programa que simula la gravedad, otorgando permisos al usuario para dictar
+los valores de G, M, r0 y v0 (Gravedad, Masa, radio inicial y velocidad inicla).
+@author Atom Alexander M. Nava
+@date 25-xx-00
+"""
 def solve_gravity_ode(G, M, r0, v0, dt=0.01, steps=1000):
     r = r0
     v = v0
@@ -40,7 +45,7 @@ print(f"\nÚltimo valor antes del colapso (si aplica): {r_vals[-1]:.4f} metros")
 
 
 BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
+WHITE = (240, 50, 20)
 
 # Agujero negro
 r0 = 25
@@ -73,8 +78,6 @@ class Particula:
         self.x += self.momentum_x / self.mass * self.dt
         self.y += self.momentum_y / self.mass * self.dt
         return [self.x, self.y]
-
-
 
 
 screen = pygame.display.set_mode((ANCHO, ALTURA))
@@ -129,10 +132,17 @@ def generator():
         p = Particula(x, y)
         particulas.append(p)
 
+"""
+@brief Método para asignar las el ángulo, radio, velocidad, coordenadas y en general
+los valores respectivamente. Con los valores correspondientes, este método recrea eficientemente
+la simulación de un agujero negro.
+@date 2025-xx-xx
+"""
 def agujero_negro_generador():
-    for _ in range(25000):
+    for _ in range(30000):
         angulo = random.uniform(0, 2 * math.pi)
-        radio = random.uniform(100, 250)
+        #radio = random.uniform(100, 250)
+        radio = random.uniform(200, 500)
         x = centroX + radio * cos(angulo)
         y = centroY + radio * sin(angulo)
         p = Particula(x, y)
@@ -145,7 +155,11 @@ def agujero_negro_generador():
 
 agujero_negro_generador()
 
-
+"""
+@brief Método para dibujar las particulas en todo el sistema, es decir, establecer
+las 'n' particulas que se imprimiran en pantalla.
+@date 2025-xx-xx
+"""
 def draw():
     for i in range(len(particulas)):
         pygame.draw.circle(screen, WHITE, (particulas[i].move(CENTRO)), 1)

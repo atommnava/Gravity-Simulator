@@ -12,7 +12,7 @@ centroX = ANCHO // 2
 centroY = ALTURA // 2
 
 # Agujero negro Campos
-G = 0.8
+G = 0.5
 M = 1e9
 
 BLACK = (0, 0, 0)

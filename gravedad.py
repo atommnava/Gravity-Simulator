@@ -12,11 +12,11 @@ centroX = ANCHO // 2
 centroY = ALTURA // 2
 
 # Agujero negro Campos
-G = 0.5
+G = 0.2
 M = 1e9
 
 BLACK = (0, 0, 0)
-WHITE = (255, 60, 0)
+WHITE = (255,255,255)
 
 # Agujero negro
 r0 = 25
@@ -84,19 +84,18 @@ def generator():
 """
 
 # Cuadrado
-"""
 def generator():
-     for i in range(500):
+     for i in range(20000):
          x = randrange(0, 500)
          y = randrange(0, 500)
          p = Particula(x, y)
          particulas.append(p)
-"""
 
 # Flor
+"""
 def generator():
     petals = 6
-    for i in range(2):
+    for i in range(20000):
         angulo = random.uniform(0, 2 * math.pi)
         radio = 150 + 50 * math.sin(petals * angulo)
         x = centroX + radio * cos(angulo)
@@ -104,22 +103,23 @@ def generator():
         p = Particula(x, y)
         particulas.append(p)
 
-def agujero_negro_generador():
+"""
+def TON618():
     for _ in range(25000):
         angulo = random.uniform(0, 2 * math.pi)
         radio = random.uniform(100, 250)
         x = centroX + radio * cos(angulo)
         y = centroY + radio * sin(angulo)
         p = Particula(x, y)
-        # velocidad orbital pero incompleta (colapso eventual)
+        # velocidad orbital pero incompleta
         speed = sqrt(G * M / radio) * 0.6  # 60% de la velocidad de escape
         p.momentum_x = -speed * sin(angulo)
         p.momentum_y = speed * cos(angulo)
         particulas.append(p)
 
 
-agujero_negro_generador()
-
+TON618()
+#generator()
 
 def draw():
     for i in range(len(particulas)):

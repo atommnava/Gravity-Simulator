@@ -2,6 +2,7 @@
 import math
 import random
 from math import cos, sin, sqrt
+from random import randrange
 import pygame
 
 # VARIABLES GLOBALES
@@ -45,7 +46,7 @@ print(f"\nÚltimo valor antes del colapso (si aplica): {r_vals[-1]:.4f} metros")
 
 
 BLACK = (0, 0, 0)
-WHITE = (240, 50, 20)
+WHITE = (250, 50, 20)
 
 # Agujero negro
 r0 = 25
@@ -96,7 +97,6 @@ def generator():
         p = Particula(x, y)
         particulas.append(p)
 """
-
 # Circulo
 """
 def generator():
@@ -115,8 +115,8 @@ def generator():
 """
 def generator():
      for i in range(500):
-         x = randrange(0, 500)
-         y = randrange(0, 500)
+         x = random.randrange(0, 500)
+         y = random.randrange(0, 500)
          p = Particula(x, y)
          particulas.append(p)
 """
@@ -124,7 +124,7 @@ def generator():
 # Flor
 def generator():
     petals = 6
-    for i in range(2):
+    for i in range(100):
         angulo = random.uniform(0, 2 * math.pi)
         radio = 150 + 50 * math.sin(petals * angulo)
         x = centroX + radio * cos(angulo)
@@ -139,10 +139,9 @@ la simulación de un agujero negro.
 @date 2025-xx-xx
 """
 def agujero_negro_generador():
-    for _ in range(30000):
+    for _ in range(25000):
         angulo = random.uniform(0, 2 * math.pi)
-        #radio = random.uniform(100, 250)
-        radio = random.uniform(200, 500)
+        radio = random.uniform(100, 250)
         x = centroX + radio * cos(angulo)
         y = centroY + radio * sin(angulo)
         p = Particula(x, y)
@@ -154,7 +153,7 @@ def agujero_negro_generador():
 
 
 agujero_negro_generador()
-
+#generator()
 """
 @brief Método para dibujar las particulas en todo el sistema, es decir, establecer
 las 'n' particulas que se imprimiran en pantalla.
